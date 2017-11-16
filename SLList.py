@@ -181,9 +181,9 @@ class SLList:
     def getSize(self):
 		currNode = self.head
 		count = 0
-		while currNode.nextnode == not None:
+		while currNode.getNext() == not None:
 			count += 1
-			currNode = currNode.nextnode
+			currNode = currNode.getNext()
 		
 		return count
         pass
@@ -193,11 +193,11 @@ class SLList:
         # should be raised if the data is not found. If it
         # is found, the reference to the node is returned.
 		currNode = self.head
-		while currNode.nextNode == not None:
-			if currNode.data == data:
+		while currNode.getNext() == not None:
+			if currNode.getData() == data:
 				return currNode
 			
-			currNode = currNode.nextnode
+			currNode = currNode.getNext()
 		
 		raise ValueError("Item {} not found".format(str(data)))
         pass
