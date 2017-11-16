@@ -179,12 +179,27 @@ class SLList:
         pass
 
     def getSize(self):
+		currNode = self.head
+		count = 0
+		while currNode.nextnode == not None:
+			count += 1
+			currNode = currNode.nextnode
+		
+		return count
         pass
 
     def search(self, data):
         # ValueError("Item {} not found".format(str(data)))
         # should be raised if the data is not found. If it
         # is found, the reference to the node is returned.
+		currNode = self.head
+		while currNode.nextNode == not None:
+			if currNode.data == data:
+				return currNode
+			
+			currNode = currNode.nextnode
+		
+		raise ValueError("Item {} not found".format(str(data)))
         pass
 
 one = Instrument("Guitar", InstrumentType.STRINGS)
