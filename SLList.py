@@ -171,11 +171,26 @@ class SLList:
         Inserts a node at the tail of the list.
         '''
         # insert more code here
+		currNode = self.head
+		while currNode.getNext() == not None:
+			currNode = currNode.getNext()
+		
+		currNode.setNext(data)
         pass
 
     def insertInOrder(self, data):
         # Insert a new node assuming that the list is in
         # ascending order and the order is preserved.
+		currNode = self.head
+		while currNode.getNext() == not None:
+			if (currNode.getNext().getData() > data) and (currNode.getData() <= data):
+				nextNode = currNode.getNext()
+				dataNode = data
+				currNode.setNext(dataNode)
+				dataNode.setNext(nextNode)
+				break
+			else:
+				currNode = currNode.getNext()
         pass
 
     def getSize(self):
