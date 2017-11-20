@@ -171,20 +171,50 @@ class SLList:
         Inserts a node at the tail of the list.
         '''
         # insert more code here
+		currNode = self.head
+		while currNode.getNext() == not None:
+			currNode = currNode.getNext()
+		
+		currNode.setNext(data)
         pass
 
     def insertInOrder(self, data):
         # Insert a new node assuming that the list is in
         # ascending order and the order is preserved.
+		currNode = self.head
+		while currNode.getNext() == not None:
+			if (currNode.getNext().getData() > data) and (currNode.getData() <= data):
+				nextNode = currNode.getNext()
+				dataNode = data
+				currNode.setNext(dataNode)
+				dataNode.setNext(nextNode)
+				break
+			else:
+				currNode = currNode.getNext()
         pass
 
     def getSize(self):
+		currNode = self.head
+		count = 0
+		while currNode.getNext() == not None:
+			count += 1
+			currNode = currNode.getNext()
+		
+		return count
         pass
 
     def search(self, data):
         # ValueError("Item {} not found".format(str(data)))
         # should be raised if the data is not found. If it
         # is found, the reference to the node is returned.
+		currNode = self.head
+		while currNode.getNext() == not None:
+			if currNode.getData() == data:
+				return currNode
+			
+			currNode = currNode.getNext()
+		
+		raise ValueError("Item {} not found".format(str(data)))
         pass
 
 one = Instrument("Guitar", InstrumentType.STRINGS)
