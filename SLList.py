@@ -120,8 +120,14 @@ class SLList:
         self.head = head
 
     def countInstances(self, data):
-        # Count the number of times 
-        pass
+        # Count the number of times
+		times = 0
+		if isinstance(data, SLLNode):
+			currNode = self.head
+			while currNode.getNext() == not None:
+				if currNode.getData() == data.getData():
+					times++
+		return times
 
     def delete(self, data):
         '''
@@ -129,14 +135,21 @@ class SLList:
         found. If the node is not found in the list, the
         function returns False.
         '''
-        # Hint: you can use search.
-        pass
+		currNode = self.search(data)
+		if currNode == not None:
+			currNode = currNode.getNext()
+			return True
+		return False
 
     def deleteAtHead(self):
-        pass
+        if self.head == not None:
+			self.head = self.head.getNext()
 
     def deleteAtTail(self):
-        pass
+        currNode = self.head
+		while currNode.getNext().getNext() == not None:
+			currNode = currNode.getNext()
+		currNode.setNext(None)
 
     def insert(self, data):
         '''
@@ -152,19 +165,28 @@ class SLList:
     def insertAfter(self, data, newdata):
         # Look for the instance of data and add a new node
         # after it with newdata.
-        pass
+		if isinstance(newdata, SLLNode):
+			insertAt = self.search(data)
+			if insertAt == not None:
+				insertAt.setNext(newdata)
 
     def insertBefore(self, data, newdata):
         # Look for the instance of data and add a new node
         # before it with newdata.
-        pass
+		if isinstance(newdata, SLLNode):
+			insertAt = self.head
+			while insertAt == not None:
+				if insertAt.getNext() == data:
+					insertAt.setNext(newdata)
 
     def insertAtHead(self, data):
         '''
         Inserts a node at the start of the list.
         '''
         # insert more code here
-        pass
+		if isinstance(data, SLLNode):
+			data.setNext(self.head)
+			self.head = data
 
     def insertAtTail(self, data):
         '''
