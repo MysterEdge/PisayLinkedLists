@@ -121,13 +121,13 @@ class SLList:
 
     def countInstances(self, data):
         # Count the number of times
-		times = 0
-		if isinstance(data, SLLNode):
-			currNode = self.head
-			while currNode.getNext() is not None:
-				if currNode.getData() == data.getData():
-					times += 1
-		return times
+        times = 0
+        if isinstance(data, SLLNode):
+            currNode = self.head
+            while currNode.getNext() is not None:
+                if currNode.getData() == data.getData():
+                    times += 1
+        return times
 
     def delete(self, data):
         '''
@@ -135,21 +135,21 @@ class SLList:
         found. If the node is not found in the list, the
         function returns False.
         '''
-		currNode = self.search(data)
-		if currNode is not None:
-			currNode = currNode.getNext()
-			return True
-		return False
+        currNode = self.search(data)
+        if currNode is not None:
+            currNode = currNode.getNext()
+            return True
+        return False
 
     def deleteAtHead(self):
         if self.head is not None:
-			self.head = self.head.getNext()
+            self.head = self.head.getNext()
 
     def deleteAtTail(self):
         currNode = self.head
-		while currNode.getNext().getNext() is not None:
-			currNode = currNode.getNext()
-		currNode.setNext(None)
+        while currNode.getNext().getNext() is not None:
+            currNode = currNode.getNext()
+        currNode.setNext(None)
 
     def insert(self, data):
         '''
@@ -166,74 +166,74 @@ class SLList:
     def insertAfter(self, data, newdata):
         # Look for the instance of data and add a new node
         # after it with newdata.
-		if isinstance(newdata, SLLNode):
-			currNode = self.search(data)
-			if currNode is not None:
-				currNode.setNext(newdata)
+        if isinstance(newdata, SLLNode):
+            currNode = self.search(data)
+            if currNode is not None:
+                currNode.setNext(newdata)
 
     def insertBefore(self, data, newdata):
         # Look for the instance of data and add a new node
         # before it with newdata.
-		if isinstance(newdata, SLLNode):
-			currNode = self.head
-			if currNode is not None:
-				while currNode.getNext() != data:
-					currNode.setNext(newdata)
+        if isinstance(newdata, SLLNode):
+            currNode = self.head
+            if currNode is not None:
+                while currNode.getNext() != data:
+                    currNode.setNext(newdata)
 
     def insertAtHead(self, data):
         '''
         Inserts a node at the start of the list.
         '''
-		if isinstance(data, SLLNode):
-			data.setNext(self.head)
-			self.head = data
+        if isinstance(data, SLLNode):
+            data.setNext(self.head)
+            self.head = data
 
     def insertAtTail(self, data):
         '''
         Inserts a node at the tail of the list.
         '''
-		currNode = self.head
-		while currNode.getNext() is not None:
-			currNode = currNode.getNext()
-		currNode.setNext(data)
+        currNode = self.head
+        while currNode.getNext() is not None:
+            currNode = currNode.getNext()
+        currNode.setNext(data)
 
     def insertInOrder(self, data):
         # Insert a new node assuming that the list is in
         # ascending order and the order is preserved.
-		currNode = self.head
-		while currNode.getNext() is not None:
-			if (currNode.getNext().getData() > data) and (currNode.getData() <= data):
-				nextNode = currNode.getNext()
-				dataNode = data
-				currNode.setNext(dataNode)
-				dataNode.setNext(nextNode)
-				break
-			else:
-				currNode = currNode.getNext()
+        currNode = self.head
+        while currNode.getNext() is not None:
+            if (currNode.getNext().getData() > data) and (currNode.getData() <= data):
+                nextNode = currNode.getNext()
+                dataNode = data
+                currNode.setNext(dataNode)
+                dataNode.setNext(nextNode)
+                break
+            else:
+                currNode = currNode.getNext()
         pass
 
     def getSize(self):
-		currNode = self.head
-		count = 0
-		while currNode.getNext() is not None:
-			count += 1
-			currNode = currNode.getNext()
-		
-		return count
+        currNode = self.head
+        count = 0
+        while currNode.getNext() is not None:
+            count += 1
+            currNode = currNode.getNext()
+        
+        return count
         pass
 
     def search(self, data):
         # ValueError("Item {} not found".format(str(data)))
         # should be raised if the data is not found. If it
         # is found, the reference to the node is returned.
-		currNode = self.head
-		while currNode.getNext() is not None:
-			if currNode.getData() == data:
-				return currNode
-			
-			currNode = currNode.getNext()
-		
-		raise ValueError("Item {} not found".format(str(data)))
+        currNode = self.head
+        while currNode.getNext() is not None:
+            if currNode.getData() == data:
+                return currNode
+            
+            currNode = currNode.getNext()
+        
+        raise ValueError("Item {} not found".format(str(data)))
         pass
 
 one = Instrument("Guitar", InstrumentType.STRINGS)
