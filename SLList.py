@@ -124,9 +124,9 @@ class SLList:
 		times = 0
 		if isinstance(data, SLLNode):
 			currNode = self.head
-			while currNode.getNext() == not None:
+			while currNode.getNext() is not None:
 				if currNode.getData() == data.getData():
-					times++
+					times += 1
 		return times
 
     def delete(self, data):
@@ -136,18 +136,18 @@ class SLList:
         function returns False.
         '''
 		currNode = self.search(data)
-		if currNode == not None:
+		if currNode is not None:
 			currNode = currNode.getNext()
 			return True
 		return False
 
     def deleteAtHead(self):
-        if self.head == not None:
+        if self.head is not None:
 			self.head = self.head.getNext()
 
     def deleteAtTail(self):
         currNode = self.head
-		while currNode.getNext().getNext() == not None:
+		while currNode.getNext().getNext() is not None:
 			currNode = currNode.getNext()
 		currNode.setNext(None)
 
@@ -155,6 +155,7 @@ class SLList:
         '''
         Inserts a node at the end of the list.
         '''
+        # @aureljared: whats the difference between this and insertAtTail() ???
         if isinstance(data, SLLNode):
             # insert more code here
             pass
@@ -166,24 +167,23 @@ class SLList:
         # Look for the instance of data and add a new node
         # after it with newdata.
 		if isinstance(newdata, SLLNode):
-			insertAt = self.search(data)
-			if insertAt == not None:
-				insertAt.setNext(newdata)
+			currNode = self.search(data)
+			if currNode is not None:
+				currNode.setNext(newdata)
 
     def insertBefore(self, data, newdata):
         # Look for the instance of data and add a new node
         # before it with newdata.
 		if isinstance(newdata, SLLNode):
-			insertAt = self.head
-			while insertAt == not None:
-				if insertAt.getNext() == data:
-					insertAt.setNext(newdata)
+			currNode = self.head
+			if currNode is not None:
+				while currNode.getNext() != data:
+					currNode.setNext(newdata)
 
     def insertAtHead(self, data):
         '''
         Inserts a node at the start of the list.
         '''
-        # insert more code here
 		if isinstance(data, SLLNode):
 			data.setNext(self.head)
 			self.head = data
@@ -192,19 +192,16 @@ class SLList:
         '''
         Inserts a node at the tail of the list.
         '''
-        # insert more code here
 		currNode = self.head
-		while currNode.getNext() == not None:
+		while currNode.getNext() is not None:
 			currNode = currNode.getNext()
-		
 		currNode.setNext(data)
-        pass
 
     def insertInOrder(self, data):
         # Insert a new node assuming that the list is in
         # ascending order and the order is preserved.
 		currNode = self.head
-		while currNode.getNext() == not None:
+		while currNode.getNext() is not None:
 			if (currNode.getNext().getData() > data) and (currNode.getData() <= data):
 				nextNode = currNode.getNext()
 				dataNode = data
@@ -218,7 +215,7 @@ class SLList:
     def getSize(self):
 		currNode = self.head
 		count = 0
-		while currNode.getNext() == not None:
+		while currNode.getNext() is not None:
 			count += 1
 			currNode = currNode.getNext()
 		
@@ -230,7 +227,7 @@ class SLList:
         # should be raised if the data is not found. If it
         # is found, the reference to the node is returned.
 		currNode = self.head
-		while currNode.getNext() == not None:
+		while currNode.getNext() is not None:
 			if currNode.getData() == data:
 				return currNode
 			
