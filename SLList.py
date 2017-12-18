@@ -156,6 +156,7 @@ class SLList:
         Inserts a node at the end of the list.
         '''
         # @aureljared: whats the difference between this and insertAtTail() ???
+        # @MysterEdge: My bad. This should have been clearer as a shorthand for insertAtTail.
         if isinstance(data, SLLNode):
             # insert more code here
             pass
