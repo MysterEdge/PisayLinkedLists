@@ -121,12 +121,26 @@ class SLList:
 
     def countInstances(self, data):
         # Count the number of times
+        #Contributor: Jared Dantis, Kyle Dulay
         times = 0
         if isinstance(data, SLLNode):
             currNode = self.head
             while currNode.getNext() is not None:
                 if currNode.getData() == data.getData():
                     times += 1
+                currNode = currNode.getNext()
+                
+            if currNode.getData() == data.getData():
+                times += 1
+        else:
+            currNode = self.head
+            while currNode.getNext() is not None:
+                if currNode.getData() == data:
+                    times += 1
+                currNode = currNode.getNext()
+                
+            if currNode.getData() == data:
+                times += 1
         return times
 
     def delete(self, data):
@@ -135,17 +149,23 @@ class SLList:
         found. If the node is not found in the list, the
         function returns False.
         '''
-        currNode = self.search(data)
+        #Contributor: Jared Dantis
+        if isinstance(data, SLLNode):
+            currNode = self.search(data.getData())
+        else:
+            currNode = self.search(data)
         if currNode is not None:
             currNode = currNode.getNext()
             return True
         return False
 
     def deleteAtHead(self):
+        #Contributor: Jared Dantis
         if self.head is not None:
             self.head = self.head.getNext()
 
     def deleteAtTail(self):
+        #Contributors: Jared Dantis, Kyle Dulay
         currNode = self.head
         if currNode is None:
             pass
@@ -172,55 +192,94 @@ class SLList:
     def insertAfter(self, data, newdata):
         # Look for the instance of data and add a new node
         # after it with newdata.
-        if isinstance(newdata, SLLNode):
-            currNode = self.search(data)
-            if currNode is not None:
-                currNode.setNext(newdata)
+
+        #Contributor: Jared Dantis, Kyle Dulay
+        
+        currNode = self.search(data)
+        if currNode is not None:
+            if isinstance(newdata, SLLNode):
+                newNode = newdata
+            else:
+                newNode = SLLNode(newdata)
+            newNode.setNext(currNode.getNext())
+            currNode.setNext(newNode)
 
     def insertBefore(self, data, newdata):
         # Look for the instance of data and add a new node
         # before it with newdata.
-        if isinstance(newdata, SLLNode):
-            currNode = self.head
-            if currNode is not None:
-                while currNode.getNext() != data:
-                    currNode.setNext(newdata)
+
+        #Contributor: Jared Dantis, Kyle Dulay
+        currNode = self.head
+        if currNode is not None:
+            while currNode is not None and currNode.getNext().getData() != data:
+                currNode = currNode.getNext()
+            if currNode is None:
+                #Insert an error statement
+                pass
+            elif isinstance(newdata, SLLNode):
+                newdata.setNext(currNode.getNext())
+                currNode.setNext(newData)
+            else:
+                newNode = SLLNode(newdata)
+                newNode.setNext(currNode.getNext())
+                currNode.setNext(newNode)
 
     def insertAtHead(self, data):
         '''
         Inserts a node at the start of the list.
         '''
+        #Contributor: Jared Dantis, Kyle Dulay
         if isinstance(data, SLLNode):
             data.setNext(self.head)
             self.head = data
+        else:
+            newNode = SLLNode(data)
+            newNode.setNext(self.head)
+            self.head = newNode
 
     def insertAtTail(self, data):
         '''
         Inserts a node at the tail of the list.
         '''
+        #Contributors: Jared Dantis, Kyle Dulay
+
+        if isinstance(data, SLLNode):
+            newNode = data
+        else:
+            newNode = SLLNode(data)
+            
         if self.head is None:
-            self.insertAtHead(data)
+            self.insertAtHead(newNode)
         else:
             currNode = self.head
             while currNode.getNext() is not None:
                 currNode = currNode.getNext()
-            currNode.setNext(data)
+            currNode.setNext(newNode)
 
     def insertInOrder(self, data):
         # Insert a new node assuming that the list is in
         # ascending order and the order is preserved.
-        currNode = self.head
-        while currNode.getNext() is not None:
-            if (currNode.getNext().getData() > data) and (currNode.getData() <= data):
-                nextNode = currNode.getNext()
-                dataNode = data
-                currNode.setNext(dataNode)
-                dataNode.setNext(nextNode)
-                break
-            else:
-                currNode = currNode.getNext()
+
+        #Contributors: Jared Dantis, Kyle Dulay
+        if self.head is None:
+            self.insertAtHead(SLLNode(data))
+        else:
+            currNode = self.head
+            while currNode.getNext() is not None:
+                if (currNode.getNext().getData() > data) and (currNode.getData() <= data):
+                    nextNode = currNode.getNext()
+                    dataNode = SLLNode(data)
+                    currNode.setNext(dataNode)
+                    dataNode.setNext(nextNode)
+                    break
+                else:
+                    currNode = currNode.getNext()
 
     def getSize(self):
+        '''
+        Returns the number of elements in the list
+        '''
+        #Contributors: Clyde Jallorina, Kyle Dulay
         if self.head is None:
             return 0
         currNode = self.head
@@ -236,7 +295,8 @@ class SLList:
         # ValueError("Item {} not found".format(str(data)))
         # should be raised if the data is not found. If it
         # is found, the reference to the node is returned.
-        
+
+        #Contributors: Clyde Jallorina, Kyle Dulay
         if self.head is not None:
             if self.head.getData() == data:
                 return self.head
