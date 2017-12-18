@@ -147,9 +147,14 @@ class SLList:
 
     def deleteAtTail(self):
         currNode = self.head
-        while currNode.getNext().getNext() is not None:
-            currNode = currNode.getNext()
-        currNode.setNext(None)
+        if currNode is None:
+            pass
+        elif currNode.getNext() is None:
+            self.head = None
+        else:
+            while currNode.getNext().getNext() is not None:
+                currNode = currNode.getNext()
+            currNode.setNext(None)
 
     def insert(self, data):
         '''
@@ -193,10 +198,13 @@ class SLList:
         '''
         Inserts a node at the tail of the list.
         '''
-        currNode = self.head
-        while currNode.getNext() is not None:
-            currNode = currNode.getNext()
-        currNode.setNext(data)
+        if self.head is None:
+            self.insertAtHead(data)
+        else:
+            currNode = self.head
+            while currNode.getNext() is not None:
+                currNode = currNode.getNext()
+            currNode.setNext(data)
 
     def insertInOrder(self, data):
         # Insert a new node assuming that the list is in
@@ -211,31 +219,36 @@ class SLList:
                 break
             else:
                 currNode = currNode.getNext()
-        pass
 
     def getSize(self):
+        if self.head is None:
+            return 0
         currNode = self.head
         count = 0
         while currNode.getNext() is not None:
             count += 1
             currNode = currNode.getNext()
+        count += 1
         
         return count
-        pass
 
     def search(self, data):
         # ValueError("Item {} not found".format(str(data)))
         # should be raised if the data is not found. If it
         # is found, the reference to the node is returned.
-        currNode = self.head
-        while currNode.getNext() is not None:
-            if currNode.getData() == data:
-                return currNode
-            
-            currNode = currNode.getNext()
         
+        if self.head is not None:
+            if self.head.getData() == data:
+                return self.head
+            else:
+                currNode = self.head
+                while currNode.getNext() is not None:
+                    if currNode.getData() == data:
+                        return currNode
+                    currNode = currNode.getNext()
+                if currNode.getData() == data:
+                    return currNode
         raise ValueError("Item {} not found".format(str(data)))
-        pass
 
 one = Instrument("Guitar", InstrumentType.STRINGS)
 two = Instrument("Oboe", InstrumentType.WIND)
